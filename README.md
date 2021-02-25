@@ -6,7 +6,6 @@ This is a small ongoing series that discusses what it takes to build a basic API
 
 - Read more at: [https://web-crunch.com/posts/create-a-basic-api-with-ruby-on-rails](https://web-crunch.com/posts/create-a-basic-api-with-ruby-on-rails)
 - [Subscribe to the YouTube channel](https://youtube.com/c/webcrunch)
-
 ## Docker
 
 Docker has been added with docker-compose to make the execution a lot easier.
@@ -30,3 +29,7 @@ docker-compose exec web /myapp/bin/rails db:seed RAILS_ENV=development
 ```
 
 Consequently, we can try `http://localhost:3000/api/v1/bands` and it should show us 5 bands and 4 members for the first band `The Beatles`.
+
+## Docker Hub
+
+This API is available as a pubilc docker image on [Docker Hub](https://hub.docker.com/r/geshan/band-api).
