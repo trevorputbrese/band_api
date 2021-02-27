@@ -33,3 +33,49 @@ Consequently, we can try `http://localhost:3000/api/v1/bands` and it should show
 ## Docker Hub
 
 This API is available as a pubilc docker image on [Docker Hub](https://hub.docker.com/r/geshan/band-api).
+
+## Kubernetes
+
+All the kubernetes artifacts are in the `.k8s` directory. This is a bare-bones Kubernetes definition without service and any scaling or laod balancing.
+
+### Setup Kind
+
+To setup local k8s clusetr with kind run:
+
+```
+cat <<EOF | kind create cluster --config=-
+kind: Cluster         
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:                
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
+EOF
+```
+
+### Then to run
+
+To run the Rails Bands API app on your Kind Kubernetes cluster execute the following on the project root:
+
+```
+kubectl apply -f ./.k8s
+```
+
+The deployment will be created and migration will run. Then to port forward the deployment to local port run the following:
+
+```
+kubectl port-forward deployment/bands-api-web 8001:3000
+```
+
+After that try `http://localhost:8001/api/v1/bands` , you should see the 5 bands and members from the `db/seeds.rb` file.
