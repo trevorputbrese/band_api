@@ -13,7 +13,7 @@ Docker has been added with docker-compose to make the execution a lot easier.
 To get up and running with run the following:
 
 ```
-docker-commpose up
+docker-compose up
 ```
 
 After the server is running, run the following command to create the database schema:
