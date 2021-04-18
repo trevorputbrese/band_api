@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'health_check/healthcheck'
   namespace :api do
     namespace :v1 do
       resources :bands do
