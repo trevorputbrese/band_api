@@ -32,8 +32,16 @@ spec:
           protocol: TCP
         readinessProbe:
           httpGet:
-            path: /
+            path: /health_check/healthcheck
             port: 3000
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 2
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "128Mi"
+          requests:
+            cpu: "150m"
+            memory: "128Mi"
+      restartPolicy: Always
